@@ -29,7 +29,8 @@ class UserController extends Controller
         ]);
         Auth::login($user);
         $user->sendEmailVerificationNotification();
-        return redirect()->route('verification.notice')->with('successMessage','Your account was created');
+        return response()->json('success');
+        //return redirect()->route('verification.notice')->with('successMessage','Your account was created');
     }
     public function storeEmployer(RegistrationFormRequest $request){
         $user = User::create([
@@ -41,7 +42,8 @@ class UserController extends Controller
         ]);
         Auth::login($user);
         $user->sendEmailVerificationNotification();
-        return redirect()->route('verification.notice')->with('successMessage','Your account was created');
+        return response()->json('success');
+//        return redirect()->route('verification.notice')->with('successMessage','Your account was created');
     }
 
     public function login(){
