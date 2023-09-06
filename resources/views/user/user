@@ -1,0 +1,13 @@
+id
+name
+email
+email_verified_at
+password
+about
+profile_pic
+user_type
+resume
+user_trial
+billing_ends
+status
+plan
