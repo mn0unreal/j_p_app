@@ -19,6 +19,11 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{route('dashboard')}}">dashboard</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{route('subscribe')}}">Subscribe</a>
+                </li>
+
+
                 @if(!Auth::check())
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">Login</a>

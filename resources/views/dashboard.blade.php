@@ -4,9 +4,14 @@
 
     <div class="container mt-5">
 
-        Hello,    {{ auth()->user()->name }}
+        Hello, {{ auth()->user()->name }}
+        @if(!auth()->user()->billing_ends)
+            @if(auth()->check() && auth()->user()->user_type == 'employer')
+                <p>Your trial {{now()->format('Y-m-d') >  auth()->user()->user_trial ? ' was expire ' : ' will expire '}} on  {{ auth()->user()->user_trial }}</p>
+            @endif
+        @endif
         @if(auth()->check() && auth()->user()->user_type == 'employer')
-        <p>Your trial {{now()->format('Y-m-d') >  auth()->user()->user_trial ? ' was expire ' : ' will expire '}} on  {{ auth()->user()->user_trial }}</p>
+            <p>Your trial {{now()->format('Y-m-d') >  auth()->user()->user_trial ? ' was expire ' : ' will expire '}} on  {{ auth()->user()->user_trial }}</p>
         @endif
 
         <div class="row justify-content-center">
