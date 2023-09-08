@@ -5,7 +5,7 @@
 
 <div id="layoutSidenav">
 
-@include('layouts.admin.saidbar')
+@include('layouts.admin.sidebar')
 
 <div id="layoutSidenav_content">
 @include('layouts.admin.body')
