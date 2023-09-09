@@ -8,6 +8,13 @@
     <meta name="author" content="" />
     <title>Dashboard - SB Admin</title>
 {{--    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />--}}
-    <link href="css/styles.css" rel="stylesheet" />
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://fiduswriter.github.io/simple-datatables/demos/dist/css/style.css" rel="stylesheet" />
+    <link href="{{asset('css/styles.css')}}" rel="stylesheet" />
+
+
+{{--datepicker--}}
+    <link rel="stylesheet" href="{{asset('datepicker/jquery-ui-1.13.2/jquery-ui.css')}}">
+    <!-- include summernote css/js -->
+    <link href="{{asset('summernote-0.8.18/summernote.min.css')}} " rel="stylesheet">
+
 </head>

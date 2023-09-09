@@ -15,10 +15,13 @@ class isPremiumUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if($request->user()->user_trial > date('Y-m-d') || $request->user()->billing_ends >date('Y-m-d')){
+        $user = $request->user();
 
-        return $next($request);
+        if (!is_null($user) && ($user->user_trial > date('Y-m-d') || $user->billing_ends > date('Y-m-d'))) {
+            return $next($request);
+            // Allow the request to continue
         }
-        return redirect()->route('subscribe')->with('message','Please subscribe to post a job');
+        return redirect()->route('subscribe')->with('message', 'Please subscribe to post a job');
+        // Redirect the user to the subscription page with a message
     }
 }

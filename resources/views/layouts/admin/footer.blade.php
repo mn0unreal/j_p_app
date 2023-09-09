@@ -11,11 +11,23 @@
     </div>
 </footer>
 
-<script src="js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<script src="js/scripts.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script src="assets/demo/chart-area-demo.js"></script>
-<script src="assets/demo/chart-bar-demo.js"></script>
-<script src="js/simple-datatables.min.js" ></script>
-<script src="js/datatables-simple-demo.js"></script>
-
+<script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('js/scripts.js')}}"></script>
+<script src="{{asset('js/2.8.0_Chart.min.js')}}"></script>
+<script src="{{asset('assets/demo/chart-area-demo.js')}}"></script>
+<script src="{{asset('assets/demo/chart-bar-demo.js')}}"></script>
+<script src="{{asset('js/simple-datatables.min.js')}}" ></script>
+<script src="{{asset('js/datatables-simple-demo.js')}}"></script>
+<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+{{--datepicker--}}
+    <script src="{{asset('datepicker/jquery-ui-1.13.2/jquery-3.6.0.js')}}"></script>
+    <script src="{{asset('datepicker/jquery-ui-1.13.2/jquery-ui.js')}}"></script>
+<!-- include summernote css/js -->
+<script src="{{asset('summernote-0.8.18/summernote.min.js')}}"></script>
+{{--datepicker--}}
+<script>
+    $( function() {
+        $( "#datepicker" ).datepicker();
+        $('.summernote').summernote();
+    } );
+</script>

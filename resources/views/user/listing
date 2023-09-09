@@ -1,0 +1,10 @@
+Listing table
+user_id
+title
+slug
+description
+roles
+job_type => fulltime,partime,csacual
+address
+salary
+application_close_date
