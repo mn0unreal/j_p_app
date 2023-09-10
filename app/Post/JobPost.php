@@ -17,8 +17,6 @@ class JobPost{
     }
     public  function store(Request $data):void
     {
-
-
         $imagePath = $this->getImagePath($data);
         $this->listing->user_id = auth()->user()->id;
         $this->listing->title = $data->title;
