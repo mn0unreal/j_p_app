@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+//use  \App\Models\User;
 
 class Listing extends Model
 {
@@ -20,4 +21,10 @@ class Listing extends Model
         'feature_image',
         'slug'
     ];
+
+    public function users(){
+        return $this->belongsToMany(User::class,'listing_user','listing_id','user_id')
+            ->withPivot('shortlisted')
+            ->withTimestamps();
+    }
 }

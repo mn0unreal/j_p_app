@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+//use \App\Models\Listing;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -51,4 +52,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function listings(){
+        return $this->belongsToMany(Listing::class,'listing_user','user_id','listing_id')
+            ->withPivot('shortlisted')
+            ->withTimestamps();
+    }
 }

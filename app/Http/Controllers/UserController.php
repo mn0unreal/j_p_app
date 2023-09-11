@@ -111,8 +111,8 @@ class UserController extends Controller
                 // Redirect to the employer dashboard
                 return redirect()->route('dashboard');
             } else {
-                // Redirect to the home page for non-employers
-                return redirect()->route('home');
+                // Redirect to the back page for non-employers
+                return redirect()->back();
             }
         }
 

@@ -1,0 +1,9 @@
+#users table:
+    id,name,email,password
+#listings table:
+    id,user_id,title,description
+#pivot table: user_listings table
+    user_id >< listings_id
+
+
+
