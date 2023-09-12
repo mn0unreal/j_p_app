@@ -25,6 +25,7 @@ class ApplicantController extends Controller
          $listing = Listing::with('users')->where('slug',$listing->slug)->first();
         return view('applicants.show',compact('listing'));
     }
+
     public function shortlist($listingId,$userId)
     {
         $listing = Listing::find($listingId);
@@ -36,6 +37,12 @@ class ApplicantController extends Controller
             return back()->with('success','User is shortlisted successfully');
         }
         return back();
+    }
+
+    public function apply($listingId){
+        $user = auth()->user();
+        $user->listings()->syncWithoutDetaching($listingId);
+        return back()->with('success','Your application was successfully submitted');
     }
 
 }

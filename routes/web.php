@@ -3,6 +3,8 @@
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\JoblistingController;
 use App\Http\Controllers\PostJobController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
@@ -24,16 +26,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home', function () {
+//Route::get('/home', function () {
+//
+//    return view('home')->name('home');
+//});
 
-    return view('home')->name('home');
-});
-Route::get('/', function () {
-    return view('home');
-});
-Route::get('/users', function () {
-    return view('user.index');
-});
+Route::get('/',[JoblistingController::class,'index'])->name('listing.index');
+Route::get('/company/{id}',[JoblistingController::class,'company'])->name('company');
+Route::get('/jobs/{listing:slug}',[JoblistingController::class,'show'])->name('job.show');
+
+Route::post('/resume/upload',[FileUploadController::class,'store'])->middleware('auth');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
@@ -52,7 +54,12 @@ Route::post('/logout',[UserController::class,'logout'])->name('logout');
 
 Route::get('/user/profile',[UserController::class,'profile'])->name('user.profile')->middleware('auth');
 Route::post('/user/profile',[UserController::class,'update'])->name('user.update.profile')->middleware('auth');
-Route::get('/user/profile/seeker',[UserController::class,'seekerProfile'])->name('seeker.profile')->middleware('auth');
+Route::get('/user/profile/seeker',[UserController::class,'seekerProfile'])->name('seeker.profile')->middleware(['auth','verified']);
+
+
+Route::get('/user/job/applied',[UserController::class,'jobApplied'])->name('job.applied');
+
+
 Route::post('/user/password',[UserController::class,'changePassword'])->name('user.password')->middleware('auth');
 Route::post('/upload/resume',[UserController::class,'uploadResume'])->name('upload.resume')->middleware('auth');
 
@@ -76,8 +83,9 @@ Route::put('job/{id}/edit',[PostJobController::class,'update'])->name('job.updat
 Route::get('job',[PostJobController::class,'index'])->name('job.index');
 Route::delete('job/{id}/delete',[PostJobController::class,'destroy'])->name('job.delete');
 
-
 Route::get('applicants',[ApplicantController::class,'index'])->name('applicants.index');
 Route::get('applicants/{listing:slug}',[ApplicantController::class,'show'])->name('applicants.show');
 Route::post('shortlist/{listingId}/{userId}',[ApplicantController::class,'shortlist'])->name('applicants.shortlist');
+
+Route::post('application/{listingId}/submit',[ApplicantController::class,'apply'])->name('application.submit');
 

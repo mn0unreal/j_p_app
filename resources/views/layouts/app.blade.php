@@ -3,10 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Job portal</title>
     <link href="{{ url('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url('assets/filepond/filepond.css') }}" rel="stylesheet">
+
+
 </head>
 <body>
+<script src="{{ url('assets/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url('assets/filepond/filepond.js') }}"></script>
+
 <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
     <div class="container">
         <a class="navbar-brand" href="/">TechJobs</a>
@@ -18,14 +24,32 @@
             <ul class="navbar-nav ms-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link " href="/">Home</a>
                 </li>
-
                 @if(Auth::check())
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('seeker.profile')}}">Profile</a>
+                {{--                --}}
+                <li class=" nav-item dropdown">
+                    <button class=" dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{{Storage::url(auth()->user()->profile_pic ?? '')}}" width="40" class="rounded-circle" >
+                    </button>
+                    <ul class="dropdown-menu">
+
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{route('seeker.profile')}}">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{route('job.applied')}}">Job applied</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="logout" href="#">Logout</a>
+                        </li>
+                    </ul>
                 </li>
+                {{--                --}}
                 @endif
+
+
 
                 @if(!Auth::check())
                     <li class="nav-item">
@@ -38,11 +62,8 @@
                         <a class="nav-link" href="{{ route('create.employer') }}">Employer</a>
                     </li>
                 @endif
-                @if(Auth::check())
-                    <li class="nav-item">
-                        <a class="nav-link" id="logout" href="#">Logout</a>
-                    </li>
-                @endif
+
+
                 <form id="form-logout" action="{{ route('logout') }}" method="post">@csrf</form>
             </ul>
         </div>
@@ -50,7 +71,9 @@
 </nav>
 @yield('content')
 
-<script src="{{ url('assets/js/bootstrap.bundle.min.js') }}"></script>
+{{--<script src="{{ url('assets/js/bootstrap.bundle.min.js') }}"></script>--}}
+{{--<script src="{{ url('assets/filepond/filepond.js') }}"></script>--}}
+
 
 <script>
     let logout = document.getElementById('logout');

@@ -198,13 +198,44 @@ class UserController extends Controller
         return back()->with('success',' Your resume has been updated successfully ');
     }
 
-    public function update(Request $request){
-        if($request->hasFile('profile_pic')){
-            $image_path = $request->file('profile_pic')->store('profile','public');
-            User::find(auth()->user()->id)->update(['profile_pic'=>$image_path]);
-            return back()->with('success','Your profile has been updated successfully');
+//    public function update(Request $request){
+//
+//        if($request->hasFile('profile_pic')){
+//            $image_path = $request->file('profile_pic')->store('profile','public');
+//            User::find(auth()->user()->id)->update(['profile_pic'=>$image_path]);
+//            return back()->with('success','Your profile has been updated successfully');
+//        }
+//
+//    }
+    public function update(Request $request)
+    {
+        // Validate the uploaded file
+        $request->validate([
+            'profile_pic' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust to your requirements
+        ]);
+
+        if ($request->hasFile('profile_pic')) {
+            $image = $request->file('profile_pic');
+
+            // Generate a unique filename for the image
+            $imagePath = 'profile/' . uniqid() . '.' . $image->getClientOriginalExtension();
+
+            // Store the image in the public disk
+            $image->storeAs('public', $imagePath);
+
+            // Update the user's profile_pic field
+            $user = Auth::user();
+            $user->profile_pic = $imagePath;
+            $user->save();
+
+            return back()->with('success', 'Your profile picture has been updated successfully');
         }
 
+        return back()->with('error', 'No profile picture uploaded');
+    }
+    public function jobApplied(){
+         $users = User::with('listings')->where('id',auth()->user()->id)->get();
+        return view('seeker.job-applied',compact('users'));
     }
 
 }

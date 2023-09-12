@@ -27,4 +27,10 @@ class Listing extends Model
             ->withPivot('shortlisted')
             ->withTimestamps();
     }
+
+    public function profile(){
+        return $this->belongsTo(User::class,'user_id','id');
+
+    }
+
 }
