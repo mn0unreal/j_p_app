@@ -57,7 +57,6 @@ Route::get('/user/profile/seeker',[UserController::class,'seekerProfile'])->name
 
 Route::get('/user/job/applied',[UserController::class,'jobApplied'])->name('job.applied');
 
-
 Route::post('/user/password',[UserController::class,'changePassword'])->name('user.password')->middleware('auth');
 Route::post('/upload/resume',[UserController::class,'uploadResume'])->name('upload.resume')->middleware('auth');
 
