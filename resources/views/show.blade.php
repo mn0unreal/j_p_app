@@ -5,12 +5,12 @@
         <div class="row justify-content-center">
             <div class="col-md-8 mt-3">
                 <div class="card">
-                    <img src="{{Storage::url($listing->feature_image)}}" class="card-img-top" alt="Cover Image" style="height: 500px; object-fit: cover;">
+                    <img src="{{Storage::url($listing->feature_image)}}" class="card-img-top" alt="Cover Image"
+                         style="height: 500px; object-fit: cover;">
                     <div class="card-body">
 
-                        <a href="{{route('company',[$listing->profile->id])}}">
-
-                            <img src="{{Storage::url($listing->profile->profile_pic)}}" width="60" class="rounded-circle">
+                        <a style="text-decoration: none;" href="{{route('company',[$listing->profile->id])}}">
+                            <img src="{{Storage::url($listing->profile->profile_pic)}}" width="60" class="rounded-circle"  alt=""/>
                         </a>
                         <b class="card-title">{{$listing->profile->name}}</b>
 
@@ -39,20 +39,6 @@
 
                         <p class="card-text mt-4">Application closing date: {{$listing->application_close_date}}</p>
 
-{{--                        @if(Auth::check())--}}
-{{--                        @if(auth()->user()->resume)--}}
-{{--                        <form action="{{route('application.submit',[$listing->id])}}" method="post" enctype="multipart/form-data">@csrf--}}
-{{--                            <button href="#" class="btn btn-primary mt-3 ">Apply Now</button>--}}
-{{--                        </form>--}}
-{{--                        @else--}}
-{{--                            <!-- Button trigger modal -->--}}
-{{--                            <button type="button" class="btn btn-dark " data-bs-toggle="modal" data-bs-target="#staticBackdrop">--}}
-{{--                                Apply--}}
-{{--                            </button>--}}
-{{--                        @endif--}}
-{{--                        @else--}}
-{{--                            <p>Please login to apply </p>--}}
-{{--                        @endif--}}
 
                         @if(Auth::check())
                             @if(auth()->user()->resume)

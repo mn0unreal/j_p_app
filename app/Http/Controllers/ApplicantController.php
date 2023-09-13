@@ -53,7 +53,8 @@ class ApplicantController extends Controller
         } else {
             // User has already submitted an application for this listing
             // Handle the error or display a message to the user
-            return back()->with('error', 'You have already submitted an application for this job listing');
+            return back()->with('success','Your application was successfully submitted');
+//            return back()->with('error', 'You have already submitted an application for this job listing');
         }
 //        return back()->with('success','Your application was successfully submitted');
     }
