@@ -42,7 +42,7 @@
             <div class="col-md-3">
                 <div class="card p-2 {{$job->job_type}}" style="height: 355px;/*! width: 260px; */">
                     <div class="text-right"><small class="badge text-bg-secondary">{{$job->job_type}}</small></div>
-                    <div class="text-center mt-2 p-3" >
+                    <div class="text-center mt-2 mb-2 ">
 
                         <img src="{{Storage::url($job->profile->profile_pic)}}" width="100" class="rounded-circle" alt="">
 
@@ -56,9 +56,9 @@
 
                         <div class="d-flex justify-content-between mt-3">
                             <span>${{number_format($job->salary,2)}}</span>
-                            <a href="{{route('job.show',[$job->slug])}}">
+                            <span><a href="{{route('job.show',[$job->slug])}}">
                                 <button class="btn btn-sm btn-outline-dark">Apply Now</button>
-                            </a>
+                            </a></span>
                         </div>
 
                     </div>
