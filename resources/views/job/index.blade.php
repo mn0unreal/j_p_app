@@ -21,6 +21,7 @@
                             <th>Title</th>
                             <th>Created on</th>
                             <th>Edit</th>
+                            <th>View</th>
                             <th>Delete</th>
                         </tr>
                         </thead>
@@ -29,6 +30,7 @@
                             <th>Title</th>
                             <th>Created on</th>
                             <th>Edit</th>
+                            <th>View</th>
                             <th>Delete</th>
                         </tr>
                         </tfoot>
@@ -38,6 +40,7 @@
                                 <td>{{$job->title}}</td>
                                 <td>{{$job->created_at->format('Y-m-d')}}</td>
                                 <td><a href="{{route('job.edit',[$job->id])}}">Edit</a> </td>
+                                <td><a href="{{route('job.show',[$job->slug])}}">View</a> </td>
                                 <td><a href="{{route('job.edit',[$job->id])}}"
                                        class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{$job->id}}"
                                     >Delete</a>

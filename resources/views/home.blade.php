@@ -40,9 +40,9 @@
             @foreach($jobs as $job)
 {{--                {{$job->job_type}}--}}
             <div class="col-md-3">
-                <div class="card p-2 {{$job->job_type}}" >
+                <div class="card p-2 {{$job->job_type}}" style="height: 355px;/*! width: 260px; */">
                     <div class="text-right"><small class="badge text-bg-secondary">{{$job->job_type}}</small></div>
-                    <div class="text-center mt-2 p-3">
+                    <div class="text-center mt-2 p-3" >
 
                         <img src="{{Storage::url($job->profile->profile_pic)}}" width="100" class="rounded-circle" alt="">
 

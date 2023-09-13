@@ -44,24 +44,24 @@
                         <label>Jobs types</label>
 
                         <div class="form-check">
-                            <input type="radio" class="form-check-input"  id="fulltime" name="job_type" value="fulltime"
+                            <input type="radio" class="form-check-input"  id="fulltime" name="job_type" value="Fulltime"
                                 {{ $listing->job_type === 'fulltime' ? 'checked':'' }}>
-                            <label for="fulltime" class="form-check-label" >Fulltime</label>
+                            <label for="fulltime" class="form-check-label" >Full time</label>
                         </div>
                         <div class="form-check">
-                            <input type="radio" class="form-check-input"  id="parttime" name="job_type" value="parttime"
-                                {{ $listing->job_type === 'parttime' ? 'checked':'' }}>
-                            <label for="parttime" class="form-check-label" >Part time</label>
+                            <input type="radio" class="form-check-input"  id="Parttime" name="job_type" value="Parttime"
+                                {{ $listing->job_type === 'Parttime' ? 'checked':'' }}>
+                            <label for="Parttime" class="form-check-label" >Part time</label>
                         </div>
                         <div class="form-check">
-                            <input type="radio" class="form-check-input"  id="casual" name="job_type" value="casual"
-                                {{ $listing->job_type === 'casual' ? 'checked':'' }}>
-                            <label for="casual" class="form-check-label" >Fulltime</label>
+                            <input type="radio" class="form-check-input"  id="Casual" name="job_type" value="Casual"
+                                {{ $listing->job_type === 'Casual' ? 'checked':'' }}>
+                            <label for="Casual" class="form-check-label" >Casual</label>
                         </div>
                         <div class="form-check">
-                            <input type="radio" class="form-check-input"   id="contract" name="job_type" value="contract"
-                                {{ $listing->job_type === 'contract' ? 'checked':'' }}>
-                            <label for="contract" class="form-check-label" >Contract</label>
+                            <input type="radio" class="form-check-input"   id="Contract" name="job_type" value="Contract"
+                                {{ $listing->job_type === 'Contract' ? 'checked':'' }}>
+                            <label for="Contract" class="form-check-label" >Contract</label>
                         </div>
                         @if($errors->has('job_type'))
                             <div class="alert alert-danger">{{$errors->first('job_type')}}</div>

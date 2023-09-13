@@ -44,26 +44,32 @@
                             @if(auth()->user()->resume)
                                 @php
                                     $userSubmitted = auth()->user()->listings->contains($listing->id);
+                                    $userType = auth()->user()->user_type;
                                 @endphp
 
-                                @if(!$userSubmitted)
-                                    <form action="{{route('application.submit',[$listing->id])}}" method="post" enctype="multipart/form-data">@csrf
-                                        <button href="#" class="btn btn-primary mt-3 ">Apply Now</button>
+                                @if($userType == 'employer')
+                                    <!-- Hide the buttons for employers -->
+                                @elseif(!$userSubmitted)
+                                    <form action="{{ route('application.submit', [$listing->id]) }}" method="post" enctype="multipart/form-data">@csrf
+                                        <button href="#" class="btn btn-primary mt-3">Apply Now</button>
                                     </form>
                                 @else
-                                    <form action="{{route('application.unsubmit',[$listing->id])}}" method="post" enctype="multipart/form-data">@csrf
+                                    <form action="{{ route('application.unsubmit', [$listing->id]) }}" method="post" enctype="multipart/form-data">@csrf
                                         <button href="#" class="btn btn-danger mt-3">Unsubmit</button>
                                     </form>
                                 @endif
+
                             @else
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-dark " data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                     Apply
                                 </button>
                             @endif
                         @else
-                            <p>Please login to apply </p>
+                            <p>Please login to apply</p>
                         @endif
+
+
                         <!-- Modal -->
                         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <form action="{{route('application.submit',[$listing->id])}}" method="post" enctype="multipart/form-data">@csrf
@@ -86,6 +92,7 @@
                             </form>
                         </div>
                         <!--/ Modal -->
+
                     </div>
                 </div>
             </div>
