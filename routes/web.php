@@ -42,7 +42,6 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
     return redirect('/login');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
-
 Route::get('/register/seeker',[UserController::class,'createSeeker'])->name('create.seeker')->middleware(CheckAuth::class);
 Route::post('/register/seeker',[UserController::class,'storeSeeker'])->name('store.seeker');
 Route::get('/register/employer',[UserController::class,'createEmployer'])->name('create.employer')->middleware(CheckAuth::class);
@@ -55,7 +54,6 @@ Route::post('/logout',[UserController::class,'logout'])->name('logout');
 Route::get('/user/profile',[UserController::class,'profile'])->name('user.profile')->middleware('auth');
 Route::post('/user/profile',[UserController::class,'update'])->name('user.update.profile')->middleware('auth');
 Route::get('/user/profile/seeker',[UserController::class,'seekerProfile'])->name('seeker.profile')->middleware(['auth','verified']);
-
 
 Route::get('/user/job/applied',[UserController::class,'jobApplied'])->name('job.applied');
 
@@ -76,16 +74,16 @@ Route::get('/pay/yearly',[SubscriptionController::class,'initiatePayment'])->nam
 Route::get('/payment/success',[SubscriptionController::class,'paymentSuccess'])->name('payment.success');
 Route::get('/payment/cancel',[SubscriptionController::class,'cancel'])->name('payment.cancel');
 
-Route::get('job/create',[PostJobController::class,'create'])->name('job.create');
-Route::post('job/store',[PostJobController::class,'store'])->name('job.store');
-Route::get('job/{listing}/edit',[PostJobController::class,'edit'])->name('job.edit');
-Route::put('job/{id}/edit',[PostJobController::class,'update'])->name('job.update');
-Route::get('job',[PostJobController::class,'index'])->name('job.index');
-Route::delete('job/{id}/delete',[PostJobController::class,'destroy'])->name('job.delete');
+Route::get('/job/create',[PostJobController::class,'create'])->name('job.create');
+Route::post('/job/store',[PostJobController::class,'store'])->name('job.store');
+Route::get('/job/{listing}/edit',[PostJobController::class,'edit'])->name('job.edit');
+Route::put('/job/{id}/edit',[PostJobController::class,'update'])->name('job.update');
+Route::get('/job',[PostJobController::class,'index'])->name('job.index');
+Route::delete('/job/{id}/delete',[PostJobController::class,'destroy'])->name('job.delete');
 
-Route::get('applicants',[ApplicantController::class,'index'])->name('applicants.index');
-Route::get('applicants/{listing:slug}',[ApplicantController::class,'show'])->name('applicants.show');
-Route::post('shortlist/{listingId}/{userId}',[ApplicantController::class,'shortlist'])->name('applicants.shortlist');
+Route::get('/applicants',[ApplicantController::class,'index'])->name('applicants.index');
+Route::get('/applicants/{listing:slug}',[ApplicantController::class,'show'])->name('applicants.show');
+Route::post('/shortlist/{listingId}/{userId}',[ApplicantController::class,'shortlist'])->name('applicants.shortlist');
 
-Route::post('application/{listingId}/submit',[ApplicantController::class,'apply'])->name('application.submit');
-
+Route::post('/application/{listingId}/submit',[ApplicantController::class,'apply'])->name('application.submit');
+Route::post('/application/unsubmit/{listingId}',[ApplicantController::class,'unsubmitApplication'])->name('application.unsubmit');

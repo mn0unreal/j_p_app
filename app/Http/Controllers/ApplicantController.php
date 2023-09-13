@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Mail\ShortlistMail;
 use App\Models\Listing;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Request;
 
 class ApplicantController extends Controller
 {
@@ -42,7 +44,34 @@ class ApplicantController extends Controller
     public function apply($listingId){
         $user = auth()->user();
         $user->listings()->syncWithoutDetaching($listingId);
-        return back()->with('success','Your application was successfully submitted');
+
+        $listing = Listing::findOrFail($listingId);
+        // Check if the user has already submitted an application for this listing
+        if (!$user->listings->contains($listing->id)) {
+            $user->listings()->attach($listing->id);
+            return back()->with('success', 'Your application was successfully submitted');
+        } else {
+            // User has already submitted an application for this listing
+            // Handle the error or display a message to the user
+            return back()->with('error', 'You have already submitted an application for this job listing');
+        }
+//        return back()->with('success','Your application was successfully submitted');
+    }
+
+    public function unsubmitApplication(Request $request, $listingId){
+
+        $user = Auth::user();
+        $listing = Listing::findOrFail($listingId);
+
+        // Check if the user has submitted an application for this listing
+        if ($user->listings->contains($listing->id)) {
+            $user->listings()->detach($listing->id);
+            return back()->with('success', 'Your application has been retracted.');
+        } else {
+            // User has not submitted an application for this listing
+            // Handle the error or display a message to the user
+            return back()->with('error', 'You have not submitted an application for this job listing.');
+        }
     }
 
 }

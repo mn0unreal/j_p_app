@@ -20,6 +20,11 @@
                             {{Session::get('success')}}
                         </div>
                         @endif
+                        @if(Session::has('error'))
+                            <div class="alert alert-danger">
+                                {{Session::get('error')}}
+                            </div>
+                        @endif
 
                         <span class="badge bg-primary">{{$listing->job_type}}</span>
                         <p>Salary: ${{number_format($listing->salary,2)}} </p>
@@ -34,17 +39,42 @@
 
                         <p class="card-text mt-4">Application closing date: {{$listing->application_close_date}}</p>
 
+{{--                        @if(Auth::check())--}}
+{{--                        @if(auth()->user()->resume)--}}
+{{--                        <form action="{{route('application.submit',[$listing->id])}}" method="post" enctype="multipart/form-data">@csrf--}}
+{{--                            <button href="#" class="btn btn-primary mt-3 ">Apply Now</button>--}}
+{{--                        </form>--}}
+{{--                        @else--}}
+{{--                            <!-- Button trigger modal -->--}}
+{{--                            <button type="button" class="btn btn-dark " data-bs-toggle="modal" data-bs-target="#staticBackdrop">--}}
+{{--                                Apply--}}
+{{--                            </button>--}}
+{{--                        @endif--}}
+{{--                        @else--}}
+{{--                            <p>Please login to apply </p>--}}
+{{--                        @endif--}}
+
                         @if(Auth::check())
-                        @if(auth()->user()->resume)
-                        <form action="{{route('application.submit',[$listing->id])}}" method="post" enctype="multipart/form-data">@csrf
-                            <button href="#" class="btn btn-primary mt-3 ">Apply Now</button>
-                        </form>
-                        @else
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-dark " data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                Apply
-                            </button>
-                        @endif
+                            @if(auth()->user()->resume)
+                                @php
+                                    $userSubmitted = auth()->user()->listings->contains($listing->id);
+                                @endphp
+
+                                @if(!$userSubmitted)
+                                    <form action="{{route('application.submit',[$listing->id])}}" method="post" enctype="multipart/form-data">@csrf
+                                        <button href="#" class="btn btn-primary mt-3 ">Apply Now</button>
+                                    </form>
+                                @else
+                                    <form action="{{route('application.unsubmit',[$listing->id])}}" method="post" enctype="multipart/form-data">@csrf
+                                        <button href="#" class="btn btn-danger mt-3">Unsubmit</button>
+                                    </form>
+                                @endif
+                            @else
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-dark " data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    Apply
+                                </button>
+                            @endif
                         @else
                             <p>Please login to apply </p>
                         @endif
