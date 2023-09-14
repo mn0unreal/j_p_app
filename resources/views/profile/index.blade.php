@@ -12,7 +12,7 @@
                 <div class="alert alert-danger">{{Session::get('error')}}</div>
             @endif
 
-                <h4>{{auth()->user()->user_type}}</h4>
+            <h4>{{ucfirst(auth()->user()->user_type)}}</h4>
 
             <form action="{{route('user.update.profile')}}" method="post" enctype="multipart/form-data"> @csrf
                 <div class="col-md-8">
@@ -34,6 +34,12 @@
                 </div>
             </form>
 
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-8">
+                <hr>
+            </div>
         </div>
 
         <div class="row justify-content-center mt-4">
@@ -62,25 +68,7 @@
 
         </div>
 
-        <div class="row justify-content-center mt-4">
-            <h4>Update  your resume</h4>
-
-            <form action="{{route('upload.resume')}}" method="post" enctype="multipart/form-data" > @csrf
-                <div class="col-md-8">
-
-                    <div class="form-group">
-                        <label for="resume">Upload a resume</label>
-                        <input type="file" name="resume" id="resume" class="form-control">
-                    </div>
-
-                    <div class="form-group mt-3">
-                        <button type="submit" class="btn btn-primary">Upload</button>
-                    </div>
-                </div>
-            </form>
-
-        </div>
+        {{-- resume --}}
 
     </div>
-
 @endsection

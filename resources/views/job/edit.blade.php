@@ -12,6 +12,7 @@
                     <div class="alert alert-success" >{{Session::get('success')}}</div>
                 @endif
                 <form action="{{route('job.update',[$listing->id])}}" method="post" enctype="multipart/form-data">@csrf @method('PUT')
+
                     <div class="form-group">
                         <label for="feature_image" >Feature image</label>
                         <input type="file" id="feature_image" name="feature_image" class="form-control" >
@@ -81,9 +82,13 @@
                             <div class="alert alert-danger">{{$errors->first('salary')}}</div>
                         @endif
                     </div>
+
                     <div class="form-group">
                         <label for="application_close_date" >Application closing date</label>
-                        <input type="text" id="datepicker" name="application_close_date" class="form-control" value="{{$listing->application_close_date}}">
+                        @php
+                            $applicationCloseDate = \Carbon\Carbon::parse($listing->application_close_date);
+                        @endphp
+                        <input type="text" id="datepicker" name="application_close_date" class="form-control" value="{{$applicationCloseDate->format('m/d/Y')}}">
                         @if($errors->has('application_close_date'))
                             <div class="alert alert-danger">{{$errors->first('application_close_date')}}</div>
                         @endif

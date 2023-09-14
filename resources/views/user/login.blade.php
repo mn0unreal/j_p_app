@@ -115,15 +115,16 @@
                     <div class="email-table">
                         <div class="form-group">
                             <label for="">Email</label>
-                            <div class="code copyable" onclick="copyTagContent(this)">faisal@mailinator.com</div>
+                            <div class="code copyable" onclick="copyTagContent(this)">hostgator@mailinator.com</div>
                         </div>
                         <div class="form-group">
                             <label for="">Email</label>
-                            <div class="code copyable" onclick="copyTagContent(this)">khaled@mailinator.com</div>
+                            <div class="code copyable" onclick="copyTagContent(this)">godaddy@mailinator.com</div>
                         </div>
+
                         <div class="form-group">
                             <label for="">Email</label>
-                            <div class="code copyable" onclick="copyTagContent(this)">yousef@mailinator.com</div>
+                            <div class="code copyable" onclick="copyTagContent(this)">bluehost@mailinator.com</div>
                         </div>
                     </div>
                     <div class="password-table">

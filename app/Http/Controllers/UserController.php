@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
@@ -156,6 +157,7 @@ class UserController extends Controller
 //        $user->save();
 //        return back()->with('success','Your password has been update successfully');
 //    }
+
     /**
      * @param Request $request
      * @return RedirectResponse
@@ -163,14 +165,14 @@ class UserController extends Controller
     public function changePassword(Request $request) {
         $request->validate([
             'current_password' => 'required',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:6|max:255|confirmed',
         ]);
 
         $user = auth()->user();
         // Verify current password matches the stored password in the db.
         /** @noinspection PhpUndefinedFieldInspection */
         if (!Hash::check($request->current_password, $user->password)) {
-            return back()->with('error', 'Current password is incorrect');
+            return back()->with(['error' => 'Current password is incorrect']);
         }
 
         // Update the user's password in the database
@@ -211,9 +213,19 @@ class UserController extends Controller
     {
         // Validate the uploaded file
         $request->validate([
+            'name' => 'string','max:255', // Adjust to your requirements
             'profile_pic' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust to your requirements
         ]);
 
+        // Get the currently authenticated user
+        $user = Auth::user();
+
+        // Handle name update
+        if ($request->has('name')) {
+            $user->name = $request->input('name');
+        }
+
+        // Handle profile picture update
         if ($request->hasFile('profile_pic')) {
             $image = $request->file('profile_pic');
 
@@ -221,17 +233,23 @@ class UserController extends Controller
             $imagePath = 'profile/' . uniqid() . '.' . $image->getClientOriginalExtension();
 
             // Store the image in the public disk
-            $image->storeAs('public', $imagePath);
+            if ($image->storeAs('public', $imagePath)) {
+                // Delete the old profile pic if it exists
+                if ($user->profile_pic) {
+                    Storage::delete('public/' . $user->profile_pic);
+                }
 
-            // Update the user's profile_pic field
-            $user = Auth::user();
-            $user->profile_pic = $imagePath;
-            $user->save();
-
-            return back()->with('success', 'Your profile picture has been updated successfully');
+                // Update the user's profile_pic field with the new path
+                $user->profile_pic = $imagePath;
+            } else {
+                return back()->with('error', 'Failed to upload the profile picture');
+            }
         }
 
-        return back()->with('error', 'No profile picture uploaded');
+        // Save the user's updated information
+        $user->save();
+
+        return back()->with('success', 'Your profile information has been updated successfully');
     }
     public function jobApplied(){
          $users = User::with('listings')->where('id',auth()->user()->id)->get();
