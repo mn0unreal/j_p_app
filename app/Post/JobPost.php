@@ -5,6 +5,7 @@ use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+
 class JobPost{
     protected $listing;
     public function __construct(Listing $listing){
@@ -16,6 +17,7 @@ class JobPost{
     }
     public  function store(Request $data):void
     {
+
         $imagePath = $this->getImagePath($data);
         $this->listing->user_id = auth()->user()->id;
         $this->listing->title = $data->title;
@@ -26,6 +28,7 @@ class JobPost{
         $this->listing->application_close_date = \Carbon\Carbon::createFromFormat('d/m/Y',$data->application_close_date)->format('Y-m-d');
         $this->listing->salary = $data->salary;
         $this->listing->slug = Str::slug($data->title).'.'.Str::uuid();
+        $this->listing->feature_image = $imagePath;
         $this->listing->save();
     }
 
@@ -39,8 +42,10 @@ class JobPost{
 
         // Convert the date format to 'Y-m-d'
         $applicationCloseDate = \Carbon\Carbon::createFromFormat('m/d/Y', $data->application_close_date)->format('Y-m-d');
+
         // Update the other fields excluding 'application_close_date'
         $listing->update($data->except(['feature_image', 'application_close_date']));
+
         // Update 'application_close_date'
         $listing->update(['application_close_date' => $applicationCloseDate]);
     }

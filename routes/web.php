@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ApplicantController;
-use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\JoblistingController;

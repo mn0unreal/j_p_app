@@ -8,7 +8,6 @@ use App\Http\Requests\JobPostFormRequest;
 use App\Models\Listing;
 use App\Post\JobPost;
 
-
 class PostJobController extends Controller
 {
     protected $job;
@@ -52,6 +51,7 @@ class PostJobController extends Controller
 //        $post->salary = $request->salary;
 //        $post->slug = Str::slug($request->title).'.'.Str::uuid();
 //        $post->save();
+
         $this->job->store($request);
         return back();
     }
